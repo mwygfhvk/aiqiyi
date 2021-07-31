@@ -1,7 +1,7 @@
 个人收集并适配Github Actions的各类签到大杂烩
 ## 不要fork了 ⭐️star就行  
 # 使用方式  
-1. [新建仓库并同步代码](RepoSync.md)
+1. [新建仓库并同步代码](RepoSync.md)  
 2. 点击Settings -> Secrets -> 点击绿色按钮 (如无绿色按钮说明已激活。直接到下一步。)
 3. 新增 new secret 并设置 Secrets:
 4. 双击右上角自己仓库Star触发，如有不使用项目请[禁用部分项目](https://cdn.jsdelivr.net/gh/BlueskyClouds/Script/img/2020/10/19/img/2020-10-19.jpg)
