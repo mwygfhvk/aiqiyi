@@ -60,7 +60,7 @@
 
 ### 同步Fork后的代码
 
-#### 手动同步
+#### 手动同步  
 
 [手动同步 https://blog.blueskyclouds.com/jsfx/58.html](https://blog.blueskyclouds.com/jsfx/58.html)
 #### 自动同步
