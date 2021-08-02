@@ -249,7 +249,11 @@ class BiliBiliCheckIn(object):
         else:
             coin_type = int(os.environ['BILI_TYPE'])
 
-        silver2coin = True #是否开启银瓜子换硬币，默认为 True 开启
+        if os.environ['BILI_S2C'] == "":
+            silver2coin = True # 是否开启银瓜子换硬币，默认为 True 开启
+        else:
+            silver2coin = False
+        
         session = requests.session()
         requests.utils.add_dict_to_cookiejar(session.cookies, bilibili_cookie)
         session.headers.update(
@@ -323,12 +327,14 @@ class BiliBiliCheckIn(object):
                 silver2coin_ret = self.silver2coin(session=session, bili_jct=bili_jct)
                 if silver2coin_ret["code"] == 0:
                     silver2coin_msg = f"成功将银瓜子兑换为1个硬币"
+                elif silver2coin_ret["code"] == -111:
+                    silver2coin_msg = silver2coin_ret["message"]
                 else:
                     silver2coin_msg = silver2coin_ret["msg"]
                 print(silver2coin_msg)
             else:
                 silver2coin_msg = f"未开启银瓜子兑换硬币功能"
-            live_stats = self.live_status(session=session)
+            #live_stats = self.live_status(session=session)
             uname, uid, is_login, new_coin, vip_type, new_current_exp = self.get_nav(session=session)
             # print(uname, uid, is_login, new_coin, vip_type, new_current_exp)
             reward_ret = self.reward(session=session)
@@ -343,7 +349,7 @@ class BiliBiliCheckIn(object):
                 f"【Bilibili签到】\n帐号信息: {uname}\n漫画签到: {manhua_msg}\n直播签到: {live_msg}\n"
                 f"登陆任务: 今日已登陆\n观看视频: {report_msg}\n分享任务: {share_msg}\n投币任务: {coin_msg}\n"
                 f"银瓜子兑换硬币: {silver2coin_msg}\n今日获得经验: {today_exp}\n当前经验: {new_current_exp}\n"
-                f"按当前速度升级还需: {update_data}天\n{live_stats}"
+                f"按当前速度升级还需: {update_data}天\n"
             )
             print(msg)
             if SEND_KEY == '':

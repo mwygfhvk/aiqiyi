@@ -1,9 +1,9 @@
-name: 哔咔漫画自动打哔咔
+name: V2ex签到
 
 on:
     workflow_dispatch:
     schedule:
-        - cron: "00 00 * * *"
+        - cron: "0 00 * * *"
     watch:
         types: [started]
 
@@ -12,31 +12,32 @@ jobs:
         runs-on: ubuntu-latest
         if: github.event.repository.owner.id == github.event.sender.id
         steps:
-            - name: Checkout
-              uses: actions/checkout@v2
-
-            - name: "初始化Python"
-              uses: actions/setup-python@v1
+            - uses: actions/checkout@v1
+            - name: Use Node.js 10.x
+              uses: actions/setup-node@v1
               with:
-                python-version: 3.8
-
-            - name: "安装依赖包"
-              run: pip install -r ./requirements.txt
-
-            - name: "运行 哔咔漫画自动打哔咔"
-              run: python3 function/bika/bika.py
+                  node-version: 10.x
+            - name: npm install
+              run: |
+                  npm install
+            - name: "运行【V2ex自动签到】"
+              run: |
+                  node function/v2ex/v2ex.js
               env:
-                  BIKA_USER: ${{ secrets.BIKA_USER }}
-                  BIKA_PASS: ${{ secrets.BIKA_PASS }}
+                  V2EXCK: ${{ secrets.V2EXCK }}
                   SEND_KEY: ${{ secrets.SEND_KEY }}
                   PUSH_KEY: ${{ secrets.PUSH_KEY }}
                   BARK_PUSH: ${{ secrets.BARK_PUSH }}
                   PUSH_PLUS_TOKEN: ${{ secrets.PUSH_PLUS_TOKEN}}
                   PUSH_PLUS_USER: ${{ secrets.PUSH_PLUS_USER}}
+                  QYWX_KEY: ${{ secrets.QYWX_KEY}}
+                  QYWX_AM: ${{ secrets.QYWX_AM}}
+                  TG_PROXY_HOST: ${{ secrets.TG_PROXY_HOST}}
+                  TG_PROXY_PORT: ${{ secrets.TG_PROXY_PORT}}
+                  IGOT_PUSH_KEY: ${{ secrets.IGOT_PUSH_KEY}}
                   TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
                   TG_USER_ID: ${{ secrets.TG_USER_ID }}
                   BARK_SOUND: ${{ secrets.BARK_SOUND }}
                   DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
                   DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
-                  QYWX_AM: ${{ secrets.QYWX_AM}}
-#最后推送 2021年5月19日
+#最后推送 2021年5月25日
